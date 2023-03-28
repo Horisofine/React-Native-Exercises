@@ -5,6 +5,7 @@ import Exercise2 from '../execises/exercise2/Exercise2';
 import Exercise3 from '../execises/exercise3/Exercise3';
 import Exercise4 from '../execises/exercise4/Exercise4';
 import Exercise5 from '../execises/exercise5/Exercise5';
+import Exercise6 from '../execises/exercise6/Exercise6';
 
 export default function ExerciseDrawer() {
     
@@ -41,6 +42,11 @@ export default function ExerciseDrawer() {
                 name="Input Form"
                 component={Exercise5}
                 options={{ drawerLabel: 'Input Form' }}
+            />
+            <Drawer.Screen
+                name="Using fetch()"
+                component={Exercise6}
+                options={{ drawerLabel: 'Using fetch()' }}
             />
 
 

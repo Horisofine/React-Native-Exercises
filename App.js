@@ -1,14 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { registerRootComponent } from "expo";
+import { View, Text, StyleSheet } from 'react-native'
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native';
+import ExerciseDrawer from './navigation/ExerciseDrawer';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <NavigationContainer>
+      <ExerciseDrawer />
+    </NavigationContainer>
+
+  )
 }
+
+registerRootComponent(App);
 
 const styles = StyleSheet.create({
   container: {

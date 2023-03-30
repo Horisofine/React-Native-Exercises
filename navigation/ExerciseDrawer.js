@@ -6,13 +6,14 @@ import Exercise3 from '../execises/exercise3/Exercise3';
 import Exercise4 from '../execises/exercise4/Exercise4';
 import Exercise5 from '../execises/exercise5/Exercise5';
 import Exercise6 from '../execises/exercise6/Exercise6';
+import Exercise7 from '../execises/exercise7/Exercise7';
 
 export default function ExerciseDrawer() {
     
     const Drawer = createDrawerNavigator();
     
     return (
-        <Drawer.Navigator initialRouteName='Home'>
+        <Drawer.Navigator initialRouteName='Note App'>
             <Drawer.Screen
                 name='Home'
                 component={Home}
@@ -47,6 +48,11 @@ export default function ExerciseDrawer() {
                 name="Using fetch()"
                 component={Exercise6}
                 options={{ drawerLabel: 'Using fetch()' }}
+            />
+            <Drawer.Screen
+                name="Note App"
+                component={Exercise7}
+                options={{ drawerLabel: 'Note App' }}
             />
 
 

@@ -1,6 +1,6 @@
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { TouchableHighlight, FlatList } from "react-native";
+import { FlatList, TouchableHighlight } from "react-native";
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
   Platform,
 } from "react-native";
 import { FIRESTORE_DB } from "../../../firebaseConfig";
+
 
 export default function Note({ navigation }) {
   // Storing the Notes
@@ -25,9 +26,10 @@ export default function Note({ navigation }) {
         const newNotes = [];
         snapshot.docs.forEach((doc) => {
           const noteData = doc.data();
-          const noteId = doc.id; // Get the document ID
-          newNotes.push({ ...noteData, id: noteId }); // Add the ID to the note data
+          noteData["id"] = doc.id; // Get the document ID
+          newNotes.push(noteData); // Add the ID to the note data
         });
+        newNotes.sort((a, b) => b.createdAt - a.createdAt);
         setNotes(newNotes);
       },
       error: (err) => {
@@ -37,55 +39,66 @@ export default function Note({ navigation }) {
   }, []);
 
   // Define the data you want to add to the collection
-  const newNote = {
-    title: "My new note",
-    note: "This is the content of my new note. Let's see how many lines we can type and if will all appear",
-    createdAt: new Date(),
-  };
+  const newNote = [
+    {
+      title: "Title 1",
+      note: "Note 1",
+      createdAt: new Date(),
+    },
+    {
+      title: "Title 2",
+      note: "Note 2",
+      createdAt: new Date(),
+    },
+    {
+      title: "Title 3",
+      note: "Note 3",
+      createdAt: new Date(),
+    },
+  ];
 
   // Add the new note to the "notes" collection in Firestore
-  const addNewNote = async () => {
-    try {
-      const notesRef = collection(FIRESTORE_DB, "notes");
-      const docRef = await addDoc(notesRef, newNote);
-      console.log("New note added with ID: ", docRef.id);
-    } catch (error) {
-      console.error("Error adding new note: ", error);
-    }
-  };
-
-  console.log(notes);
+  // const addNewNote = async () => {
+  //   try {
+  //     const notesRef = collection(FIRESTORE_DB, "notes");
+  //     const docRef = await addDoc(notesRef, newNote);
+  //     console.log("New note added with ID: ", docRef.id);
+  //   } catch (error) {
+  //     console.error("Error adding new note: ", error);
+  //   }
+  // };
 
   const Touchable = Platform.select({
     ios: () => TouchableOpacity, // Use TouchableOpacity for iOS
-    android: () => TouchableHighlight, // Use TouchableHighlight for Android
-    default: () => TouchableHighlight, // Use TouchableOpacity for other platforms
+    android: () => TouchableOpacity, // Use TouchableHighlight for Android
+    default: () => TouchableOpacity, // Use TouchableOpacity for other platforms
   })();
 
-  const CircleButton = (props) => {
+  const NoteBlock = ({ item }) => {
     return (
-      <Touchable style={styles.button} onPress={props.onpress}>
+      <Touchable style={styles.noteBlock}>
+          <Text style={styles.noteTitle}>{item.title}</Text>
+          <Text numberOfLines={3}>{item.note}</Text>
+      </Touchable>
+  )}
+
+  const CircleButton = () => {
+    return (
+      <Touchable style={styles.button} onPress={() => navigation.navigate("Note Add")}>
         <Text style={styles.buttonText}>+</Text>
       </Touchable>
     );
   };
 
-  const renderItem = ({ item }) => (
-    <Touchable style={styles.noteBlock} onLongPress={addNewNote}>
-      <Text style={styles.noteTitle}>{item.title}</Text>
-      <Text numberOfLines={3}>{item.note}</Text>
-    </Touchable>
-  );
-
   return (
     <View style={styles.container}>
       <FlatList
         data={notes}
-        renderItem={renderItem}
+        renderItem={NoteBlock}
         keyExtractor={(item) => item.id}
-        numColumns={3}
+        numColumns={2}
       />
-      <CircleButton onpress={addNewNote} />
+      <CircleButton />
     </View>
   );
 }
@@ -114,14 +127,15 @@ const styles = StyleSheet.create({
   },
   noteBlock: {
     width: 150,
-    height: 100,
+    height: 110,
     alignItems: "center",
-    backgroundColor: "grey",
+    backgroundColor: "#daeaf6",
     borderRadius: 10,
     margin: 16,
-    padding: 8
+    padding: 8,
   },
   noteTitle: {
     fontSize: 16,
-  }
+    paddingBottom: 16,
+  },
 });

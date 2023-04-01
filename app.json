@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "capturing-taps",
-    "slug": "capturing-taps",
+    "slug": "testament-of-the-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,16 +15,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.houssam.righi01.testamentoftheapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.houssam.righi01.testamentoftheapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5cb746ce-313a-456e-98be-6fddc9225f02"
+      }
+    },
+    "owner": "houssam.righi01"
   }
 }

@@ -35,7 +35,7 @@ export default function Exercise5() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>What is your name?</Text>
-      <TextInput
+      <TextInputs
         style={styles.input}
         onChangeText={onChangeText}
         value={text}

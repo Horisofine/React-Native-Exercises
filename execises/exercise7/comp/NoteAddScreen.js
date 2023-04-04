@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useEffect, useState } from "react";
-import { addDoc, collection, onSnapshot } from "firebase/firestore";
+import { addDoc, collection, onSnapshot,  } from "firebase/firestore";
 import { FIRESTORE_DB } from "../../../firebaseConfig";
 
 export default function NotePage({ navigation }) {

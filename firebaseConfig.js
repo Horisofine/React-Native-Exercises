@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 
 // Optionally import the services that you want to use
-// import {...} from "firebase/auth";
+import { getAuth } from "firebase/auth";
 // import {...} from "firebase/database";
 import { getFirestore } from "firebase/firestore";
 // import {...} from "firebase/functions";
@@ -9,6 +9,7 @@ import { getFirestore } from "firebase/firestore";
 
 // Initialize Firebase
 const firebaseConfig = {
+
   apiKey: "AIzaSyA_uBi8fXDVQ_lStyuJzUX9PCMM49nHXJU",
 
   authDomain: "notepad-ef2fd.firebaseapp.com",
@@ -27,5 +28,6 @@ const firebaseConfig = {
 
 export const FIREBASE_APP = initializeApp(firebaseConfig);
 export const FIRESTORE_DB = getFirestore(FIREBASE_APP);
+export const FIRAEBASE_AUTH = getAuth(FIREBASE_APP)
 // For more information on how to access Firebase in your project,
 // see the Firebase documentation: https://firebase.google.com/docs/web/setup#access-firebase

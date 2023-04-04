@@ -1,6 +1,6 @@
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { FlatList, TouchableHighlight } from "react-native";
+import { FlatList, Pressable, TouchableHighlight } from "react-native";
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
   Platform,
 } from "react-native";
 import { FIRESTORE_DB } from "../../../firebaseConfig";
+import NoteBlock from "./NoteBlock";
 
 
 export default function Note({ navigation }) {
@@ -39,62 +40,39 @@ export default function Note({ navigation }) {
   }, []);
 
   // Define the data you want to add to the collection
-  const newNote = [
-    {
-      title: "Title 1",
-      note: "Note 1",
-      createdAt: new Date(),
-    },
-    {
-      title: "Title 2",
-      note: "Note 2",
-      createdAt: new Date(),
-    },
-    {
-      title: "Title 3",
-      note: "Note 3",
-      createdAt: new Date(),
-    },
-  ];
-
-  // Add the new note to the "notes" collection in Firestore
-  // const addNewNote = async () => {
-  //   try {
-  //     const notesRef = collection(FIRESTORE_DB, "notes");
-  //     const docRef = await addDoc(notesRef, newNote);
-  //     console.log("New note added with ID: ", docRef.id);
-  //   } catch (error) {
-  //     console.error("Error adding new note: ", error);
-  //   }
-  // };
-
-  const Touchable = Platform.select({
-    ios: () => TouchableOpacity, // Use TouchableOpacity for iOS
-    android: () => TouchableOpacity, // Use TouchableHighlight for Android
-    default: () => TouchableOpacity, // Use TouchableOpacity for other platforms
-  })();
-
-  const NoteBlock = ({ item }) => {
-    return (
-      <Touchable style={styles.noteBlock}>
-          <Text style={styles.noteTitle}>{item.title}</Text>
-          <Text numberOfLines={3}>{item.note}</Text>
-      </Touchable>
-  )}
+  // const newNote = [
+  //   {
+  //     title: "Title 1",
+  //     note: "Note 1",
+  //     createdAt: new Date(),
+  //   },
+  //   {
+  //     title: "Title 2",
+  //     note: "Note 2",
+  //     createdAt: new Date(),
+  //   },
+  //   {
+  //     title: "Title 3",
+  //     note: "Note 3",
+  //     createdAt: new Date(),
+  //   },
+  // ];
 
   const CircleButton = () => {
     return (
-      <Touchable style={styles.button} onPress={() => navigation.navigate("Note Add")}>
+      <Pressable style={styles.button} onPress={() => navigation.navigate("Note Add")}>
         <Text style={styles.buttonText}>+</Text>
-      </Touchable>
+      </Pressable>
     );
   };
+
+  const renderItem = ({ item }) => <NoteBlock item={item} />;
 
   return (
     <View style={styles.container}>
       <FlatList
         data={notes}
-        renderItem={NoteBlock}
+        renderItem={renderItem}
         keyExtractor={(item) => item.id}
         numColumns={2}
       />

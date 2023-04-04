@@ -7,6 +7,7 @@ import Exercise4 from '../execises/exercise4/Exercise4';
 import Exercise5 from '../execises/exercise5/Exercise5';
 import Exercise6 from '../execises/exercise6/Exercise6';
 import Exercise7 from '../execises/exercise7/Exercise7';
+import Exercise8 from '../execises/exercise8/Exercise8';
 
 export default function ExerciseDrawer() {
     
@@ -53,6 +54,11 @@ export default function ExerciseDrawer() {
                 name="Note App"
                 component={Exercise7}
                 options={{ drawerLabel: 'Note App' }}
+            />
+            <Drawer.Screen
+                name="Auth App"
+                component={Exercise8}
+                options={{ drawerLabel: 'Auth App' }}
             />
 
 
